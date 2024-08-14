@@ -2,30 +2,37 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import Header from "@/components/header";
 import Card from "@/components/Card";
-import { useEffect, useState } from "react";
-
+import { useContext, useEffect, useState } from "react";
+// import { MyContext } from "@/provider/search-provide";
+// import MyProvider from "@/provider/provider";
+import { MyContext } from "@/provider/provider";
+import Loader from "@/components/Loader";
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
-  const [articles, setArticles] = useState([]);
+export default function Homepage() {
+  // const [articles, setArticles] = useState([]);
+  const { searchValue, articles } = useContext(MyContext);
 
-  const getArticleData = async () => {
-    const response = await fetch(
-      "https://dev.to/api/articles?page=1&per_page=9"
-    );
-    const data = await response.json();
-    setArticles(data);
-    // console.log("data", data)
-  };
+  // const getArticleData = async () => {
+  //   const response = await fetch(
+  //     "https://dev.to/api/articles?page=1&per_page=9"
+  //   );
+  //   const data = await response.json();
+  //   setArticles(data);
+  //   // console.log("data", data)
+  // };
 
-  useEffect(() => {
-    getArticleData();
-  }, []);
+  // useEffect(() => {
+  //   getArticleData();
+  // }, []);
+
+  const findArticles = articles.filter((article) =>
+    article?.title.toLowerCase().includes(searchValue.toLowerCase())
+  );
 
   console.log("articles", articles);
   return (
     <main>
-      <Header></Header>
       <div className=" relative max-w-[1200px] m-auto">
         <div className="">
           <img src="./image/image.png" alt="" className="" />
@@ -40,13 +47,15 @@ export default function Home() {
           <h5 className="mt-8">August 20, 2022</h5>
         </div>
       </div>
-
+      <h2>Value: {searchValue}</h2>
       {/* blog card section  */}
-      {articles.map((article) => {
-        return (
-          <Card title={article.title} social_image={article.social_image} />
-        );
-      })}
+      <div className="grid grid-cols-3 gap-3">
+        {findArticles.map((article) => {
+          return (
+            <Card title={article.title} social_image={article.social_image} />
+          );
+        })}
+      </div>
       {/* <div className="relative">
         <div className="absolute">
           <img

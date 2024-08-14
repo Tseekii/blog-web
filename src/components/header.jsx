@@ -1,8 +1,12 @@
+import { MyContext } from "@/provider/provider";
+import { useContext } from "react";
 import { IoIosSearch } from "react-icons/io";
 
 const Header = () => {
+  const { setSearchValue } = useContext(MyContext);
+
   return (
-    <div className="flex justify-between justify-center ">
+    <div className="flex justify-between">
       <img
         src="./image/Logo.png"
         className="w-40 h-9 text-background: #141624;"
@@ -17,6 +21,9 @@ const Header = () => {
       <div className="relative">
         <input
           type="text"
+          onChange={(e) => {
+            setSearchValue(e.target.value);
+          }}
           className="bg-slate-200 rounded-l"
           placeholder="Search"
         />
