@@ -7,24 +7,11 @@ import { useContext, useEffect, useState } from "react";
 // import MyProvider from "@/provider/provider";
 import { MyContext } from "@/provider/provider";
 import Loader from "@/components/Loader";
+import TrendCard from "@/components/TrendCard";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Homepage() {
-  // const [articles, setArticles] = useState([]);
-  const { searchValue, articles } = useContext(MyContext);
-
-  // const getArticleData = async () => {
-  //   const response = await fetch(
-  //     "https://dev.to/api/articles?page=1&per_page=9"
-  //   );
-  //   const data = await response.json();
-  //   setArticles(data);
-  //   // console.log("data", data)
-  // };
-
-  // useEffect(() => {
-  //   getArticleData();
-  // }, []);
+  const { searchValue, articles, trendings } = useContext(MyContext);
 
   const findArticles = articles.filter((article) =>
     article?.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -47,6 +34,13 @@ export default function Homepage() {
           <h5 className="mt-8">August 20, 2022</h5>
         </div>
       </div>
+      {/* Trending Cards */}
+      <h1>Trending</h1>
+      {trendings.map((trend) => (
+        <TrendCard title={trend.title} image={trend.cover_image} />
+      ))}
+
+      {/* Trending Cards */}
       <h2>Value: {searchValue}</h2>
       {/* blog card section  */}
       <div className="grid grid-cols-3 gap-3">
