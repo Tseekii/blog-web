@@ -1,4 +1,5 @@
 import { MyContext } from "@/provider/provider";
+import Link from "next/link";
 import { useContext } from "react";
 import { IoIosSearch } from "react-icons/io";
 
@@ -14,9 +15,15 @@ const Header = () => {
       />
 
       <div className="flex gap-20">
-        <p>Home</p>
-        <p>Blog</p>
-        <p>Contact</p>
+        <Link href={"/home"}>
+          <p>Home</p>
+        </Link>
+        <Link href={"/blog"}>
+          <p>Blog</p>
+        </Link>
+        <Link href={"/contact"}>
+          <p>Contact</p>
+        </Link>
       </div>
       <div className="relative">
         <input
